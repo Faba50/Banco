@@ -1,0 +1,83 @@
+class Cliente:
+    def __init__(self, nombre, cash=0):
+        self.nombre = nombre
+        self.cash = cash
+
+    def depositar(self):
+        monto_deposito = int(input("Ingrese la cantidad que desea depositar: "))
+        self.cash += monto_deposito
+        print(f"Se ha depositado {monto_deposito} pesos. Nuevo saldo: {self.cash}")
+
+    def __str__(self):
+        return f"Cliente: {self.nombre}. Saldo actual: {self.cash} pesos."
+
+
+class ILBA:
+    def __init__(self):
+        self.clientes = []
+
+    def agregar_cliente(self, cliente):
+        self.clientes.append(cliente)
+
+    def calcular_total_depositado(self):
+        total_depositado = sum(cliente.cash for cliente in self.clientes)
+        return total_depositado
+
+    def __str__(self):
+        return f"Banco ILBA con {len(self.clientes)} clientes."
+
+
+
+Banco = ILBA()
+
+
+cliente1 = Cliente("Brad Pitt", 173156)
+cliente2 = Cliente("Maria Elena Walsh", 23419)
+cliente3 = Cliente("Pedro Pedro Pe", 77777)
+
+Banco.agregar_cliente(cliente1)
+Banco.agregar_cliente(cliente2)
+Banco.agregar_cliente(cliente3)
+
+
+def realizar_deposito():
+    nombre_cliente = input("Ingrese el nombre del cliente que desea depositar dinero: ")
+    a=nombre_cliente.capitalize()
+    for cliente in Banco.clientes:
+        if cliente.nombre == nombre_cliente:
+            cliente.depositar()
+            return
+    print("Cliente no encontrado.")
+
+
+def calcular_total():
+    total_depositado = Banco.calcular_total_depositado()
+    print(f"Total de dinero depositado en el Banco ILBA: {total_depositado} pesos.")
+
+
+def menu():
+    while True:
+        print("\nMenú de Operaciones Banco ILBA:")
+        print("1. Realizar depósito")
+        print("2. Calcular monto depositado en el banco")
+        print("3. Salir")
+
+        opcion = input("Seleccione una opción (1-3): ")
+
+        if opcion == "1":
+            realizar_deposito()
+
+        elif opcion == "2":
+            calcular_total()
+
+        elif opcion == "3":
+            print("Gracias por utilizar los servicios del Banco ILBA. ¡Hasta luego!")
+            break
+
+        else:
+            print("Opción no válida. Por favor seleccione una opción del 1 al 3.")
+
+
+menu()
+
+
